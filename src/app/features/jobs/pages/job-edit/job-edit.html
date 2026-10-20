@@ -1,0 +1,49 @@
+@if (job(); as current) {
+  <section class="job-page container">
+    <div class="job-page__content">
+      <a [routerLink]="['/jobs', current.id]" class="job-page__back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M13 8H3M3 8L7 4M3 8L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Späť na príležitosť
+      </a>
+
+      <span class="eyebrow">Upraviť príležitosť</span>
+      <h1 class="job-page__title">{{ current.title }}</h1>
+      <p class="job-page__lead">Upravte podrobnosti tejto ponuky.</p>
+
+      <div class="job-page__form">
+        <app-job-form
+          [initialJob]="current"
+          submitLabel="Uložiť zmeny"
+          (save)="onSave($event)"
+          (cancel)="onCancel()"
+        />
+      </div>
+
+      <div class="job-edit__danger">
+        <div class="job-edit__danger-copy">
+          <p class="job-edit__danger-title">Odstrániť túto príležitosť</p>
+          <p class="job-edit__danger-text">Týmto natrvalo odstránite ponuku z JobBoard.</p>
+        </div>
+
+        @if (!confirmingDelete()) {
+          <button type="button" class="btn btn--danger-text" (click)="requestDelete()">Odstrániť ponuku</button>
+        } @else {
+          <div class="job-edit__confirm">
+            <span class="job-edit__confirm-text">Naozaj chcete ponuku odstrániť?</span>
+            <button type="button" class="btn btn--secondary btn--sm" (click)="cancelDelete()">Zrušiť</button>
+            <button type="button" class="btn btn--primary btn--sm" (click)="confirmDelete()">Áno, odstrániť</button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="missing-panel container">
+    <span class="eyebrow">Nenájdené</span>
+    <h1>Táto príležitosť už nie je dostupná.</h1>
+    <p>Možno bola odstránená, alebo je odkaz, ktorý ste použili, nesprávny.</p>
+    <a routerLink="/jobs" class="btn btn--primary">Späť na príležitosti</a>
+  </section>
+}

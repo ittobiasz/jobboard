@@ -1,0 +1,60 @@
+.job-form__section {
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.job-form__section:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.job-form__section-title {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-5);
+}
+
+.job-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+}
+
+.job-form__grid .field:last-child:nth-child(odd) {
+  grid-column: span 2;
+}
+
+.job-form__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.job-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 640px) {
+  .job-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .job-form__grid .field:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .job-form__actions {
+    flex-direction: column-reverse;
+  }
+
+  .job-form__actions .btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,18 @@
+<section class="companies container">
+  <div class="companies__content">
+    <span class="eyebrow">Firmy</span>
+    <h1 class="companies__title">Tímy, ktoré práve hľadajú ľudí.</h1>
+    <p class="companies__lead">Malý, rastúci zoznam firiem, ktoré na JobBoard zverejňujú skutočné pozície.</p>
+  </div>
+
+  <div class="companies__grid">
+    @for (company of companies(); track company.name) {
+      <a class="company-card" [routerLink]="['/jobs']" [queryParams]="{ q: company.name }">
+        <span class="company-card__mark" aria-hidden="true">{{ company.mark }}</span>
+        <span class="company-card__name">{{ company.name }}</span>
+        <span class="company-card__meta">{{ company.location }}</span>
+        <span class="company-card__roles">{{ company.rolesLabel }}</span>
+      </a>
+    }
+  </div>
+</section>

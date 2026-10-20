@@ -1,0 +1,144 @@
+<form class="job-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <section class="job-form__section">
+    <h2 class="job-form__section-title">Základné informácie</h2>
+    <div class="job-form__grid">
+      <div class="field">
+        <label class="field__label" for="title">Názov pozície</label>
+        <input
+          id="title"
+          type="text"
+          class="input"
+          [class.is-invalid]="isInvalid('title')"
+          formControlName="title"
+          placeholder="napr. Frontend vývojár"
+        />
+        @if (isInvalid('title')) {
+          <p class="field__error">Zadajte názov pozície (aspoň 3 znaky).</p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="company">Spoločnosť</label>
+        <input
+          id="company"
+          type="text"
+          class="input"
+          [class.is-invalid]="isInvalid('company')"
+          formControlName="company"
+          placeholder="napr. TechFlow"
+        />
+        @if (isInvalid('company')) {
+          <p class="field__error">Zadajte názov spoločnosti.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="category">Kategória</label>
+        <select id="category" class="select" [class.is-invalid]="isInvalid('category')" formControlName="category">
+          <option value="" disabled>Vyberte kategóriu</option>
+          @for (category of categories; track category) {
+            <option [value]="category">{{ category }}</option>
+          }
+        </select>
+        @if (isInvalid('category')) {
+          <p class="field__error">Vyberte kategóriu.</p>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="job-form__section">
+    <h2 class="job-form__section-title">Lokalita a mzda</h2>
+    <div class="job-form__grid">
+      <div class="field">
+        <label class="field__label" for="location">Lokalita</label>
+        <input
+          id="location"
+          type="text"
+          class="input"
+          [class.is-invalid]="isInvalid('location')"
+          formControlName="location"
+          placeholder="napr. Žilina alebo Na diaľku"
+        />
+        @if (isInvalid('location')) {
+          <p class="field__error">Zadajte lokalitu.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="employmentType">Typ úväzku</label>
+        <select
+          id="employmentType"
+          class="select"
+          [class.is-invalid]="isInvalid('employmentType')"
+          formControlName="employmentType"
+        >
+          <option value="" disabled>Vyberte typ</option>
+          @for (type of employmentTypes; track type) {
+            <option [value]="type">{{ type }}</option>
+          }
+        </select>
+        @if (isInvalid('employmentType')) {
+          <p class="field__error">Vyberte typ úväzku.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="salary">Plat</label>
+        <input
+          id="salary"
+          type="text"
+          class="input"
+          [class.is-invalid]="isInvalid('salary')"
+          formControlName="salary"
+          placeholder="napr. 2 000 € – 3 000 €"
+        />
+        @if (isInvalid('salary')) {
+          <p class="field__error">Zadajte výšku platu.</p>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="job-form__section">
+    <h2 class="job-form__section-title">Popis</h2>
+    <div class="job-form__stack">
+      <div class="field">
+        <label class="field__label" for="description">Popis</label>
+        <textarea
+          id="description"
+          class="textarea"
+          [class.is-invalid]="isInvalid('description')"
+          formControlName="description"
+          rows="5"
+          placeholder="Opíšte pozíciu, tím a prečo stojí za to sa o ňu uchádzať."
+        ></textarea>
+        @if (isInvalid('description')) {
+          <p class="field__error">Napíšte krátky popis (aspoň 20 znakov).</p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="requirements">
+          Požiadavky <span class="field__optional">(jedna na riadok)</span>
+        </label>
+        <textarea
+          id="requirements"
+          class="textarea"
+          [class.is-invalid]="isInvalid('requirements')"
+          formControlName="requirements"
+          rows="5"
+          placeholder="2+ roky skúseností s...&#10;Silná znalosť...&#10;Skúsenosti s..."
+        ></textarea>
+        @if (isInvalid('requirements')) {
+          <p class="field__error">Uveďte aspoň jednu požiadavku.</p>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="job-form__actions">
+    <button type="button" class="btn btn--secondary" (click)="onCancel()">Zrušiť</button>
+    <button type="submit" class="btn btn--primary">{{ submitLabel() }}</button>
+  </div>
+</form>

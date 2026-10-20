@@ -1,0 +1,78 @@
+<section class="jobs-hero container">
+  <div class="jobs-hero__content">
+    <span class="eyebrow">Príležitosti</span>
+    <h1 class="jobs-hero__title">Nájdite prácu, ktorá má zmysel.</h1>
+    <p class="jobs-hero__lead">
+      Preskúmajte starostlivo vybrané príležitosti od moderných firiem, ktoré budujú skutočné produkty.
+    </p>
+  </div>
+</section>
+
+<section class="jobs-filters container">
+  <div class="field jobs-filters__search">
+    <label class="field__label" for="search">Hľadať pozície</label>
+    <input
+      id="search"
+      type="search"
+      class="input"
+      placeholder="Hľadajte podľa pozície, firmy alebo kľúčového slova"
+      [value]="searchTerm()"
+      (input)="onSearchInput($event)"
+    />
+  </div>
+
+  <div class="jobs-filters__selects">
+    <div class="field">
+      <label class="field__label visually-hidden" for="category">Kategória</label>
+      <select id="category" class="select" [value]="selectedCategory()" (change)="onCategoryChange($event)">
+        <option value="">Všetky kategórie</option>
+        @for (category of categories(); track category) {
+          <option [value]="category">{{ category }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label class="field__label visually-hidden" for="location">Lokalita</label>
+      <select id="location" class="select" [value]="selectedLocation()" (change)="onLocationChange($event)">
+        <option value="">Všetky lokality</option>
+        @for (location of locations(); track location) {
+          <option [value]="location">{{ location }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  @if (hasActiveFilters()) {
+    <button type="button" class="btn btn--text jobs-filters__reset" (click)="clearFilters()">Zrušiť filtre</button>
+  }
+</section>
+
+<section class="jobs-results container">
+  <div class="jobs-results__bar">
+    <p class="jobs-results__count">{{ resultsLabel() }}</p>
+
+    <div class="jobs-results__sort">
+      <label for="sort">Zoradiť</label>
+      <select id="sort" class="select select--inline" [value]="sortBy()" (change)="onSortChange($event)">
+        <option value="newest">Najnovšie</option>
+        <option value="title">Názov (A–Z)</option>
+        <option value="salary">Plat (najvyšší najprv)</option>
+      </select>
+    </div>
+  </div>
+
+  @if (filteredJobs().length > 0) {
+    <div class="jobs-results__list">
+      @for (job of filteredJobs(); track job.id; let i = $index) {
+        <app-job-card [job]="job" [position]="i + 1" />
+      }
+    </div>
+  } @else {
+    <div class="jobs-empty">
+      <p class="jobs-empty__title">Nenašli sa žiadne príležitosti.</p>
+      <p class="jobs-empty__text">Skúste zmeniť vyhľadávanie alebo filtre.</p>
+      <button type="button" class="btn btn--secondary" (click)="clearFilters()">Zrušiť filtre</button>
+    </div>
+  }
+</section>

@@ -1,0 +1,74 @@
+@if (job(); as current) {
+  <section class="job-detail container">
+    <a routerLink="/jobs" class="job-detail__back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M13 8H3M3 8L7 4M3 8L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Späť na príležitosti
+    </a>
+
+    <div class="job-detail__layout">
+      <div class="job-detail__main">
+        <header class="job-detail__header">
+          <span class="job-detail__mark" aria-hidden="true">{{ mark() }}</span>
+          <div>
+            <h1 class="job-detail__title">{{ current.title }}</h1>
+            <p class="job-detail__company">{{ current.company }}</p>
+          </div>
+        </header>
+
+        <p class="job-detail__meta">
+          {{ current.location }} · {{ current.employmentType }} · {{ current.salary }}
+        </p>
+
+        <section class="job-detail__section">
+          <h2>O pozícii</h2>
+          <p>{{ current.description }}</p>
+        </section>
+
+        <section class="job-detail__section">
+          <h2>Požiadavky</h2>
+          <ul class="job-detail__requirements">
+            @for (requirement of current.requirements; track requirement) {
+              <li>{{ requirement }}</li>
+            }
+          </ul>
+        </section>
+      </div>
+
+      <aside class="job-detail__sidebar">
+        <div class="job-detail__sidebar-card">
+          <p class="job-detail__salary">{{ current.salary }}</p>
+
+          <dl class="job-detail__facts">
+            <div class="job-detail__fact">
+              <dt>Úväzok</dt>
+              <dd>{{ current.employmentType }}</dd>
+            </div>
+            <div class="job-detail__fact">
+              <dt>Lokalita</dt>
+              <dd>{{ current.location }}</dd>
+            </div>
+            <div class="job-detail__fact">
+              <dt>Kategória</dt>
+              <dd>{{ current.category }}</dd>
+            </div>
+          </dl>
+
+          @if (!applied()) {
+            <button type="button" class="btn btn--primary btn--full" (click)="applyNow()">Uchádzať sa</button>
+          } @else {
+            <p class="job-detail__applied">Prihláška odoslaná — ďakujeme za záujem (len demo).</p>
+          }
+        </div>
+      </aside>
+    </div>
+  </section>
+} @else {
+  <section class="missing-panel container">
+    <span class="eyebrow">Nenájdené</span>
+    <h1>Táto príležitosť už nie je dostupná.</h1>
+    <p>Možno bola odstránená, alebo je odkaz, ktorý ste použili, nesprávny.</p>
+    <a routerLink="/jobs" class="btn btn--primary">Späť na príležitosti</a>
+  </section>
+}

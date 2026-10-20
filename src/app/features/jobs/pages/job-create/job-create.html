@@ -1,0 +1,18 @@
+<section class="job-page container">
+  <div class="job-page__content">
+    <a routerLink="/jobs" class="job-page__back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M13 8H3M3 8L7 4M3 8L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Späť na príležitosti
+    </a>
+
+    <span class="eyebrow">Nová príležitosť</span>
+    <h1 class="job-page__title">Pridať novú príležitosť</h1>
+    <p class="job-page__lead">Zdieľajte pozíciu s tisíckami zvedavých, šikovných odborníkov.</p>
+
+    <div class="job-page__form">
+      <app-job-form submitLabel="Zverejniť ponuku" (save)="onSave($event)" (cancel)="onCancel()" />
+    </div>
+  </div>
+</section>

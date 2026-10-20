@@ -1,0 +1,28 @@
+<header class="navbar">
+  <div class="navbar__inner container">
+    <a routerLink="/jobs" class="navbar__logo" (click)="closeMenu()">
+      job<span class="navbar__logo-mark">/</span>board
+    </a>
+
+    <nav class="navbar__links" [class.navbar__links--open]="isMenuOpen()">
+      <a routerLink="/jobs" routerLinkActive="is-active" class="navbar__link" (click)="closeMenu()">Ponuky</a>
+      <a routerLink="/companies" routerLinkActive="is-active" class="navbar__link" (click)="closeMenu()">Firmy</a>
+      <a routerLink="/about" routerLinkActive="is-active" class="navbar__link" (click)="closeMenu()">O nás</a>
+      <a routerLink="/jobs/new" class="btn btn--primary btn--sm navbar__cta" (click)="closeMenu()">
+        <span aria-hidden="true">+</span> Pridať ponuku
+      </a>
+    </nav>
+
+    <button
+      type="button"
+      class="navbar__toggle"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen()"
+      aria-label="Prepnúť navigačné menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
